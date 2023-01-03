@@ -1,6 +1,6 @@
 {
   "homepage": "http://zhyrgalbek.github.io/AppTodoList",
-  "name": "myapp",
+  "name": "AppTodoList",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
