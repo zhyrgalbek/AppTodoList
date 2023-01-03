@@ -1,0 +1,12 @@
+.main {
+  /* background-color: #6d9ac4; */
+  /* border: 1px solid red; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* height: 90vh; */
+}
+.container {
+  min-height: 100vh;
+  background-color: #6d9ac4;
+}

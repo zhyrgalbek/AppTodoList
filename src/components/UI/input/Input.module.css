@@ -1,0 +1,20 @@
+.input {
+  box-sizing: border-box;
+  border: 1px solid #a7b3ce;
+  padding: 15px 10px;
+  border-radius: 6px;
+  margin-top: 3px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.label {
+  /* border: 1px solid green; */
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.fullWidth {
+  width: 100%;
+}

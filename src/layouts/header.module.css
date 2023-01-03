@@ -1,0 +1,13 @@
+.block {
+  box-sizing: border-box;
+  /* border: 1px solid red; */
+  /* height: 50px; */
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 40px;
+  background-color: #ea533c;
+}
+
+.logo {
+  cursor: pointer;
+}

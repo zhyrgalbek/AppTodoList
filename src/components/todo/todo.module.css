@@ -1,0 +1,18 @@
+.block {
+  /* border: 1px solid red; */
+  padding: 0;
+}
+
+.item {
+  /* border: 1px solid red; */
+  list-style: none;
+  border-radius: 10px;
+  background-color: #021855;
+  color: #fff;
+  text-align: left;
+  box-sizing: border-box;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+}
