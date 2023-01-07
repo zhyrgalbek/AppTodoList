@@ -8,16 +8,9 @@ function loadApp() {
   }
   return [];
 }
-function loadAppTwo() {
-  if (getLocalStorage("vyhod")) {
-    return getLocalStorage("vyhod");
-  }
-  return [];
-}
 
 const initialState = {
   list: loadApp(),
-  listTwo: loadAppTwo(),
   status: "",
   showDropDown: false,
 };
@@ -34,36 +27,21 @@ const todoSlices = createSlice({
       state.list = state.list.filter((elem) => elem.id !== action.payload.id);
       addLocalStoage("users", state.list);
     },
-    removeItemTwo: (state, action) => {
-      state.listTwo = state.listTwo.filter(
-        (elem) => elem.id !== action.payload.id
-      );
-      addLocalStoage("vyhod", state.listTwo);
-    },
     editItem: (state, action) => {
       state.list = state.list.map((elem) => {
         if (elem.id === action.payload.id) {
           return action.payload;
-        }
+        } 
         return elem;
       });
       addLocalStoage("user", state.list);
     },
-    editItemTwo: (state, action) => {
-      console.log(action.payload.id);
-      state.listTwo = state.listTwo.map((elem) => {
-        if (elem.id === action.payload.id) {
-          return action.payload;
-        }
-        return elem;
-      });
-      addLocalStoage("vyhod", state.list);
-    },
-    setListTwo: (state, action) => {
-      state.list = state.list.filter((elem) => elem.id !== action.payload.id);
-      addLocalStoage("users", state.list);
-      state.listTwo.unshift(action.payload);
-      addLocalStoage("vyhod", state.listTwo);
+    timeout: (state, { payload }) => {
+      const elem = state.list.find((elem) => elem.id === payload.id);
+      if (elem) {
+        state.list = state.list.filter((elem) => elem.id !== payload.id);
+        state.list.unshift({ ...elem, timeout: true });
+      }
     },
     setStatus: (state, action) => {
       state.status = action.payload;

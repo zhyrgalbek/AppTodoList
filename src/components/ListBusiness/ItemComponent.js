@@ -1,47 +1,65 @@
-import { Paper, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import React from "react";
-
-const ItemComponent = ({ name, razmer, vremya }) => {
+function helpArr(text) {
+  const arr = text.split(":");
+  return `${arr[0]}:${arr[1]}`;
+}
+const ItemComponent = ({ name, razmer, vremya, timeout, out, variant }) => {
   return (
-    <Paper sx={{ padding: "15px" }} elevation={5}>
-      <Stack direction="row" justifyContent="flex-start" alignItems="center">
-        <Typography variant="h6">name:</Typography>
-        <Typography
-          sx={{
-            // border: "1px solid red",
-            paddingLeft: "10px",
-            paddingTop: "2px",
-          }}
-        >
-          {name}
-        </Typography>
+    <>
+      <Stack direction="row" spacing={4}>
+        <Stack direction="row" alignItems="center">
+          {/* <Typography variant="h6">name:</Typography> */}
+          <Typography
+            sx={{
+              padding: "10px",
+              textAlign: "left",
+              width: "250px",
+            }}
+          >
+            {name}
+          </Typography>
+        </Stack>
+
+        <Stack direction="row" alignItems="center">
+          {/* <Typography variant="h6">razmer:</Typography> */}
+          <Typography
+            sx={{
+              padding: "10px",
+              textAlign: "left",
+              width: "100px",
+            }}
+          >
+            {razmer}
+          </Typography>
+        </Stack>
+        <Stack direction="row" alignItems="center">
+          {/* <Typography variant="h6">vermya:</Typography> */}
+          <Typography
+            sx={{
+              padding: "10px",
+              textAlign: "left",
+              width: "100px",
+            }}
+          >
+            {variant === "hr" ? vremya : helpArr(vremya)}
+          </Typography>
+        </Stack>
+        <Stack direction="row" alignItems="center">
+          {/* <Typography variant="h6">vermya:</Typography> */}
+          <Typography
+            sx={{
+              padding: "10px",
+              textAlign: "left",
+              width: "100px",
+            }}
+          >
+            {out}
+          </Typography>
+        </Stack>
       </Stack>
-      <Stack direction="row" justifyContent="flex-start" alignItems="center">
-        <Typography variant="h6">razmer:</Typography>
-        <Typography
-          sx={{
-            // border: "1px solid red",
-            paddingLeft: "10px",
-            paddingTop: "2px",
-          }}
-        >
-          {razmer}
-        </Typography>
-      </Stack>
-      <Stack direction="row" justifyContent="flex-start" alignItems="center">
-        <Typography variant="h6">vremya:</Typography>
-        <Typography
-          sx={{
-            // border: "1px solid red",
-            paddingLeft: "10px",
-            paddingTop: "2px",
-          }}
-        >
-          {vremya}
-        </Typography>
-      </Stack>
-    </Paper>
+    </>
   );
 };
 

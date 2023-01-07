@@ -3,6 +3,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import FormAdd from "../../components/formAdd/FormAdd";
 import ListBusiness from "../../components/ListBusiness/ListBusiness";
+import TableInfo from "../../components/ListBusiness/TableInfo";
 
 const Todo2 = () => {
   const { list, listTwo } = useSelector((store) => store.todo);
@@ -20,7 +21,7 @@ const Todo2 = () => {
           alignItems="flex-start"
         >
           <ListBusiness list={list} variant="list" />
-          <ListBusiness list={listTwo} variant="listTwo" />
+          {/* <TableInfo /> */}
         </Grid>
       </Grid>
     </>

@@ -2,41 +2,40 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { todoActions } from "../../store/slices/todoSlices";
 
-const TimerItem = ({ Hours, Minutes, time, elem }) => {
-  const { list } = useSelector((store) => store.todo);
-  const [number, setNumber] = useState(0);
-  const [timerSec, setTimerSec] = useState(0);
-  const [stop, setStop] = useState(0);
+function helpTimeG(text) {
+  const arr = text.split(":");
+  const hours = arr[0] * 60 * 60;
+  const minutes = arr[1] * 60;
+  const seconds = arr[2];
+  return +hours + +minutes + +seconds;
+}
+
+const TimerItem = ({ id, vremya, day }) => {
+  const [stop, setStop] = useState(Number(helpTimeG(vremya) + 30));
+  const [g, setG] = useState();
   const dispatch = useDispatch();
   useEffect(() => {
-    setTimerSec((prev) => +Hours * 60 * 60 + +Minutes * 60);
-    setStop(+Hours * 60 * 60 + +Minutes * 60 + 10);
-  }, []);
-  useEffect(() => {
-    if (number === 10) {
-      dispatch(todoActions.setListTwo(elem));
+    const date = new Date();
+    if (Number(day) !== Number(date.getDay())) {
+      dispatch(todoActions.timeout({ id: id }));
       return;
     }
-    const el = list.find((item) => item.id === elem.id);
-    let timer = "";
-    if (el) {
-      timer = setInterval(() => {
-        setNumber((prev) => +prev + 1);
-        setTimerSec((prev) => +prev + 1);
-      }, 1000);
+    if (g >= stop) {
+      dispatch(todoActions.timeout({ id: id }));
+      return;
     }
+    const t = setInterval(() => {
+      setG(
+        helpTimeG(
+          `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+        )
+      );
+    }, 1000);
     return () => {
-      clearInterval(timer);
+      clearInterval(t);
     };
-  }, [dispatch, elem, number]);
-  const date = new Date();
-  return (
-    <div>
-      {/* {`sec: ${number}`} */}
-      {/* {` timer: ${timerSec}`} */}
-      {/* {` stop: ${stop}`} */}
-    </div>
-  );
+  }, [g]);
+  return <div>{/* {stop} {g} {day} */}</div>;
 };
 
 export default TimerItem;

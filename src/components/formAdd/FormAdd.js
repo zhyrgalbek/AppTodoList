@@ -23,12 +23,15 @@ const FormAdd = () => {
       return;
     }
     const date = new Date();
+    const out = date.getHours() + 1;
     dispatch(
       todoActions.setList({
         id: Math.random().toString(),
         name: input,
         razmer: razmer,
-        vremya: `${date.getHours()}.${date.getMinutes()}`,
+        vremya: `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`,
+        out: `${out}:${date.getMinutes()}`,
+        date: `${date.getDay()}`,
       })
     );
     setInput("");

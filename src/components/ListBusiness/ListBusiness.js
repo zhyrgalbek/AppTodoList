@@ -6,20 +6,17 @@ import {
   ListItemText,
   ListItemIcon,
   Checkbox,
-  ListItemButton,
 } from "@mui/material";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DropDown from "../DropDown/DropDown";
 import GetModal from "../Modal/GetModal";
 import EditComponent from "./EditComponent";
 import DeleteComponent from "./DeleteComponent";
-import TimerItem from "../TimerItem/TimerItem";
+// import TimerItem from "../TimerItem/TimerItem";
 import ItemComponent from "./ItemComponent";
-
-function getVremya(vremya) {
-  return vremya.split(".");
-}
+import { useDispatch } from "react-redux";
+import TimerItem from "../TimerItem/TimerItem";
 
 const massiv = [
   {
@@ -80,6 +77,7 @@ const ListBusiness = ({ list, variant }) => {
   const [openModal, setOpenModal] = React.useState(false);
   const [modalInfo, setModalInfo] = React.useState("");
   const [checked, setChecked] = React.useState([0]);
+  console.log(checked);
   const handleOpenModal = () => {
     setOpenModal(true);
   };
@@ -98,9 +96,35 @@ const ListBusiness = ({ list, variant }) => {
 
     setChecked(newChecked);
   };
+
+  // useEffect(() => {
+  //   if (checked.length > 1) {
+  //     dispatch(todoActions.timeout({ id: checked[checked.length - 1] }));
+  //   }
+  // }, [checked]);
   return (
-    <Paper sx={{ width: "500px" }}>
+    <Paper sx={{ width: "800px" }}>
       <List>
+        <ListItem
+          sx={{
+            borderBottom: "1px solid #a6a6a6",
+          }}
+        >
+          <ListItemIcon />
+          <ListItemText
+            primary={
+              <>
+                <ItemComponent
+                  name="Аты жону"
+                  razmer="размери"
+                  vremya="убакыты"
+                  out="чыгуу"
+                  variant="hr"
+                />
+              </>
+            }
+          />
+        </ListItem>
         {list?.map((elem) => {
           return (
             <ListItem
@@ -120,32 +144,39 @@ const ListBusiness = ({ list, variant }) => {
                   setModalInfo={setModalInfo}
                 />
               }
+              sx={{
+                borderBottom: "1px solid #a6a6a6",
+                backgroundColor: elem.timeout && "#eb4f50",
+                color: elem.timeout && "#fff",
+              }}
             >
-              <ListItemButton onClick={handleToggle(elem.id)}>
-                <ListItemIcon>
-                  <Checkbox
-                    edge="start"
-                    checked={checked.indexOf(elem.id) !== -1}
-                    tabIndex={-1}
-                    disableRipple
-                    // inputProps={{ "aria-labelledby": labelId }}
-                  />
-                </ListItemIcon>
-                <ListItemText
-                  primary={
+              <ListItemIcon onClick={handleToggle(elem.id)}>
+                <Checkbox
+                  edge="start"
+                  checked={checked.indexOf(elem.id) !== -1}
+                  tabIndex={-1}
+                  disableRipple
+                  // inputProps={{ "aria-labelledby": labelId }}
+                />
+              </ListItemIcon>
+              <ListItemText
+                primary={
+                  <>
                     <ItemComponent
                       name={elem.name}
                       razmer={elem.razmer}
                       vremya={elem.vremya}
+                      timeout={elem.timeout}
+                      out={elem.out}
                     />
-                  }
-                />
-                <TimerItem
-                  Hours={getVremya(elem.vremya)[0]}
-                  Minutes={getVremya(elem.vremya)[1]}
-                  elem={elem}
-                />
-              </ListItemButton>
+                    <TimerItem
+                      vremya={elem.vremya}
+                      id={elem.id}
+                      day={elem.date}
+                    />
+                  </>
+                }
+              />
             </ListItem>
           );
         })}
