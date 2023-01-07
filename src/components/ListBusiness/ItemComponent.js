@@ -3,7 +3,14 @@ import { Stack } from "@mui/system";
 import React from "react";
 function helpArr(text) {
   const arr = text.split(":");
-  return `${arr[0]}:${arr[1]}`;
+  return `${helpNum(arr[0])}:${helpNum(arr[1])}`;
+}
+
+function helpNum(number) {
+  if (number < 10) {
+    return `0${number}`;
+  }
+  return number;
 }
 const ItemComponent = ({ name, razmer, vremya, timeout, out, variant }) => {
   return (
@@ -55,7 +62,7 @@ const ItemComponent = ({ name, razmer, vremya, timeout, out, variant }) => {
               width: "100px",
             }}
           >
-            {out}
+            {variant === "hr" ? out : helpArr(out)}
           </Typography>
         </Stack>
       </Stack>
